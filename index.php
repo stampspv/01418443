@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lab JavaScript & jQuery</title>
+	<!-- Latest compiled and minified CSS & JS -->
+	<link href="https://fonts.googleapis.com/css?family=Itim" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<script src="//code.jquery.com/jquery.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+
+<div class="row">
+  <div class="col-md-2">
+  	
+  </div>
+  <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
+  <div class="col-md-8">
+  	<div class="intro">
+  		<h3>ความรู้รอบตัว</h3>
+  		<p>
+  		<button id="tenchoic" class="btn-intro">10 ข้อ</button>
+  		<p>
+  		<button id="twenchoic" class="btn-intro">20 ข้อ</button>
+  	</div>
+  	<div class="teach">
+  		<h3>ความรู้รอบตัว</h3>
+  		<p><br>
+  		<span class="num">1</span> คำถามจะสุ่มขึ้นมาตามจำนวนที่เลือก <p>
+  		<span class="num">2</span> ในหนึ่งข้อจะมีเวลาในการตอบเวลา 10 วินาที<p>
+  		<span class="num">3</span> เมื่อตอบทุกข้อเสร็จจะแสดงคะแนนที่ได้ <p>
+  		<button id="gotostart" class="btn-intro">เริ่มเล่น</button>
+  	</div>
+  	<div class="protime"><div class="timecd" id="timecd"></div></div>
+  	<div class="board">ข้อที่ 0</div>
+  	<div class="choice">
+  		<h2 class="img">image</h2>
+  		<h2 class="quest">คำถาม</h2>
+  		<button id="choice0" class="btn-intro choice-cho">ตัวเลือกที่ 1</button><p>
+  		<button id="choice1" class="btn-intro choice-cho">ตัวเลือกที่ 2</button><p>
+  		<button id="choice2" class="btn-intro choice-cho">ตัวเลือกที่ 3</button><p>
+  		<button id="choice3" class="btn-intro choice-cho">ตัวเลือกที่ 4</button><p>
+  	</div>
+  	<div class="scoreshow">คะแนนที่ได้<p><div class="scoreee">0/0</div><p>
+  		<button id="gotohome" class="btn-intro">กลับหน้าแรก</button></div>
+  	<div class="randomis"></div>
+  </div>
+  <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
+  <div class="col-md-2"><div class="log"></div><div class="time"></div></div>
+</div>
+
+	<script src="js/jquery-3.3.1.min.js" charset="utf-8"></script>
+	<script>
+		var all = new Array;
+		var choice = new Array;
+		var selected = [{"title":"error"}];
+		var time = 0;
+		var num = -99;
+		var status = 0;
+		var score = 0;
+		var downloadTimer = setInterval(function(){
+		var left = 10 - (time%(11));
+		  $(".time").text(`[${status}] Time : `+time +" Left : "+left+" Num : "+(num+1)+"/"+selected.length+" Score : "+score);
+		  if(status==1){
+			  $(".board").text("ข้อที่  "+(num+1));
+			  $(".img").html(`<img src='${all[selected[num]]['img']}' width='400px'>`);
+			  $(".quest").text(all[selected[num]]['title']);
+			  $("#choice0").text(all[selected[num]]['a']);
+			  $("#choice1").text(all[selected[num]]['b']);
+			  $("#choice2").text(all[selected[num]]['c']);
+			  $("#choice3").text(all[selected[num]]['d']);  	
+		  }else if(status == 2){
+			  $(".protime").hide();
+
+			$(".board").hide();
+			$(".choice").hide();
+			$(".scoreshow").show();
+			$(".scoreee").text(score+"/"+selected.length);
+		  }
+
+		  // $(".timecd").html(left);
+
+		  document.getElementById("timecd").style.width = left*10+"%";
+		  if(left >= 9){
+		  	document.getElementById("timecd").style.backgroundColor = "#00bbff";
+		  }else if(left >= 7){
+		  	document.getElementById("timecd").style.backgroundColor = "#6edb30";
+		  }else if(left >= 5){
+		  	document.getElementById("timecd").style.backgroundColor = "#eeff00";
+		  }else if(left >= 3){
+		  	document.getElementById("timecd").style.backgroundColor = "#ff6600";
+		  }else if(left >= 0){
+		  	document.getElementById("timecd").style.backgroundColor = "#ff0000";
+		  }
+
+		  if(left==0){
+		  	num++;
+		  }
+
+		  if(num>=selected.length){
+		  	status = 2;
+		  }
+
+		  time++;
+		},1000);
+		$(document).ready(function(){
+			$(".log").hide();
+		  	$(".time").hide();
+			$.ajax({
+				url:'data.json',
+				method:'GET',
+				dataType: 'json',
+				success: function(response){
+					for (var j = 0 ; j < response.length ; j++) {
+						all.push(response[j]);
+						var rand = Math.floor(Math.random()*response.length) + 1;
+						if (choice.indexOf(rand) >= 0){
+							// console.log("- " + rand + " is in Array");
+						}else{
+							choice.push(rand);
+						}
+
+					}
+					$(".log").append("Choice : " + choice + "<p>");
+					$(".log").append("Choice Length : " + choice.length + "<p>");
+				}
+
+			});
+			$(".teach").hide();
+			$(".protime").hide();
+			$(".board").hide();
+			$(".choice").hide();
+			$(".scoreshow").hide();
+		});
+
+		$("#tenchoic").click(function(){
+			selected = choice.slice(0, 10);
+			$(".log").append("Selected 10 : " + selected+ "<p>");
+			$(".intro").hide();
+			$(".teach").show();
+			$(".scoreshow").hide();
+
+		});
+		$("#twenchoic").click(function(){
+			console.log(choice.slice(0, 20));
+			selected = choice.slice(0, 20);
+			$(".log").append("Selected 10 : " + selected+ "<p>");
+			$(".intro").hide();
+			$(".teach").show();
+			$(".scoreshow").hide();
+
+		});
+		$("#gotostart").click(function(){
+			$(".log").append("Start..<p>");
+			$(".teach").hide();
+			$(".protime").show();
+			$(".board").show();
+			$(".choice").show();
+			time = 0;
+			num = 0;
+			status = 1;
+
+		});
+		$("#choice0").click(function(){
+			if (all[selected[num]]['answer'] == 0){
+				score ++;
+			}
+			if(num==(selected.length-1)){
+			  	status = 2;
+			}
+			num++;
+			time = 0;
+		});
+		$("#choice1").click(function(){
+			if (all[selected[num]]['answer'] == 1){
+				score ++;
+			}
+			if(num==(selected.length-1)){
+			  	status = 2;
+			}
+			num++;
+			time = 0;
+		});
+		$("#choice2").click(function(){
+			if (all[selected[num]]['answer'] == 2){
+				score ++;
+			}
+			if(num==(selected.length-1)){
+			  	status = 2;
+			}
+			num++;
+			time = 0;
+		});
+		$("#choice3").click(function(){
+			if (all[selected[num]]['answer'] == 3){
+				score ++;
+			}
+			if(num==(selected.length-1)){
+			  	status = 2;
+			}
+			num++;
+			time = 0;
+		});
+		$("#gotohome").click(function(){
+			status = 0;
+			num = 0;
+			time = 0;
+			$(".intro").show();
+			$(".scoreshow").hide();
+
+		});
+	</script>
+</body>
+</html>

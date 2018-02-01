@@ -1,0 +1,128 @@
+.col-md-8{
+	background-color: #8053BF;
+	overflow-wrap: break-word;
+	padding-top : 50px;
+	margin-top: 10px; 
+	padding-bottom: 100px; 
+	position: relative;
+	height: auto;
+	font-family: 'Itim', cursive;
+
+}
+.log{
+	overflow-wrap: break-word;
+	background-color: #ebb3b4;
+	padding: 10px;
+	margin-top: 10px; 
+}
+.intro , .teach{
+	text-align: center;
+}
+.intro h3 , .teach h3{
+	font-size: 3.5em;
+	color:white;
+}
+.btn-intro{
+	margin-top:30px; 
+	background: #ff470f;
+	font-size: 2.3em;
+    color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 2px 2px white;
+    cursor: pointer;
+    font-weight: 700;
+    padding-left: 1.2em;
+    padding-right: 1.2em;
+    text-align: center;
+    will-change: box-shadow;
+    transition: 0.5s;
+    border-bottom:3px solid white;
+}
+.btn-intro:hover{
+	padding-left: 1.5em;
+    padding-right: 1.5em;
+    background: #ff6600;
+}
+.score{
+	color: white;
+	padding-top: 20px;
+	font-size: 1em;
+	opacity: 0.5;
+}
+.teach{
+	font-size: 1.3em;
+	color: white;
+	line-height: 40px;
+}
+.teach .num{
+	background: #ff6600;
+	border-radius: 2em;
+	-moz-border-radius: 2em;
+	-webkit-border-radius: 2em;
+	color: #ffffff;
+	display: inline-block;
+	font-weight: bold;
+	line-height: 3em;
+	margin-right: 15px;
+	text-align: center;
+	width: 3em; 
+	font-size: 1.2em;
+}
+
+.protime{
+	width:100%;
+    height:20px;
+    background:white;
+}
+.timecd{
+	width:40%;
+    height:20px;
+    background:pink;
+    transition: 0.4s;
+}
+
+.board{
+	text-align: center;
+	background: white;
+	width: 150px;
+	margin: auto;
+	margin-top: 30px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	font-size: 2em;
+	color:#8053BF;
+	border-top: 5px solid #dbdbdb;
+}
+.quest{
+	color:white;
+	text-align: center;
+}
+.choice-cho{
+	margin:20px 50px;
+	width: 90%;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background: #f4a089;
+	font-size: 1.5em;
+}
+
+.scoreshow{
+	text-align: center;
+	font-size: 3em;
+	color: white;
+}
+.scoreee{
+	font-size: 3.2em;
+}
+
+#gotohome{
+	font-size: 1em;
+}
+
+.choice img {
+    border-radius: 5%;
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}

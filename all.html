@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lab JavaScript & jQuery</title>
+	<meta charset="UTF-8">
+	
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<style type="text/css">
+.output{
+	background-color: pink;
+	padding : 10px;
+	margin : 50px;
+}
+</style>
+</head>
+<body>
+	<div class="randomis"></div>
+	<div class="output"></div>
+	<script src="js/jquery-3.3.1.min.js" charset="utf-8"></script>
+	<script>
+		$(document).ready(function(){
+			var choice = new Array;
+			$.ajax({
+				url:'data.json',
+				method:'GET',
+				dataType: 'json',
+				success: function(response){
+					for (var i = 0 ; i < response.length; i++) {
+						$(".output").append(`<p>
+							[${i}] >>>> ${response[i].title}<br>
+							0 : ${response[i].a}<br>
+							1 : ${response[i].b}<br>
+							2 : ${response[i].c}<br>
+							3 : ${response[i].d}<br>
+							Answer : ${response[i].answer}
+							<hr></p>`);
+					}
+					for (var j = 0 ; j < 20 ; j++) {
+						var rand = Math.floor(Math.random()*response.length) + 1;
+						if (choice.indexOf(rand) >= 0){
+							// console.log("- " + rand + " is in Array");
+						}else{
+							choice.push(rand);
+							console.log("+ Push " +rand + " into Array");
+						}
+
+					}
+					console.log("= Array is " + choice);
+					$(".randomis").text("Random answer is " + choice);
+				}
+
+			});
+
+		});
+
+		
+	</script>
+</body>
+</html>
