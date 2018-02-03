@@ -46,6 +46,7 @@
   		<button id="choice3" class="btn-intro choice-cho">ตัวเลือกที่ 4</button><p>
   	</div>
   	<div class="scoreshow">คะแนนที่ได้<p><div class="scoreee">0/0</div><p>
+  		<p><div class="usetime">ใช้เวลาที่งหมด 0 วินาที</div>
   		<button id="gotohome" class="btn-intro">กลับหน้าแรก</button></div>
   	<div class="randomis"></div>
   </div>
@@ -58,6 +59,7 @@
 		var all = new Array;
 		var choice = new Array;
 		var selected = [{"title":"error"}];
+		var usetime = 0;
 		var time = 0;
 		var num = -99;
 		var status = 0;
@@ -79,6 +81,7 @@
 			$(".board").hide();
 			$(".choice").hide();
 			$(".scoreshow").show();
+			$(".usetime").text("ใช้เวลาทั้งหมด "+usetime+" วินาที");
 			$(".scoreee").text(score+"/"+selected.length);
 		  }
 
@@ -135,6 +138,7 @@
 			$(".board").hide();
 			$(".choice").hide();
 			$(".scoreshow").hide();
+			$(".usetime").hide();
 		});
 
 		$("#tenchoic").click(function(){
@@ -172,6 +176,7 @@
 			if(num==(selected.length-1)){
 			  	status = 2;
 			}
+			usetime+=time;
 			num++;
 			time = 0;
 		});
@@ -182,6 +187,7 @@
 			if(num==(selected.length-1)){
 			  	status = 2;
 			}
+			usetime+=time;
 			num++;
 			time = 0;
 		});
@@ -192,6 +198,7 @@
 			if(num==(selected.length-1)){
 			  	status = 2;
 			}
+			usetime+=time;
 			num++;
 			time = 0;
 		});
@@ -202,15 +209,18 @@
 			if(num==(selected.length-1)){
 			  	status = 2;
 			}
+			usetime+=time;
 			num++;
 			time = 0;
 		});
 		$("#gotohome").click(function(){
+			usetime = 0;
 			status = 0;
 			num = 0;
 			time = 0;
 			$(".intro").show();
 			$(".scoreshow").hide();
+			$(".usetime").hide();
 
 		});
 	</script>
