@@ -66,10 +66,15 @@
 		var score = 0;
 		var downloadTimer = setInterval(function(){
 		var left = 10 - (time%(11));
+			console.log(usetime);
 		  $(".time").text(`[${status}] Time : `+time +" Left : "+left+" Num : "+(num+1)+"/"+selected.length+" Score : "+score);
 		  if(status==1){
 			  $(".board").text("ข้อที่  "+(num+1));
-			  $(".img").html(`<img src='${all[selected[num]]['img']}' width='400px'>`);
+			  if(all[selected[num]]['img'] != ""){
+				$(".img").html(`<img src='${all[selected[num]]['img']}' width='400px'>`);
+			  }else{
+			  	$(".img").html(``);
+			  }
 			  $(".quest").text(all[selected[num]]['title']);
 			  $("#choice0").text(all[selected[num]]['a']);
 			  $("#choice1").text(all[selected[num]]['b']);
@@ -81,6 +86,7 @@
 			$(".board").hide();
 			$(".choice").hide();
 			$(".scoreshow").show();
+			$(".usetime").show();
 			$(".usetime").text("ใช้เวลาทั้งหมด "+usetime+" วินาที");
 			$(".scoreee").text(score+"/"+selected.length);
 		  }
